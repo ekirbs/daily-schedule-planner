@@ -1,7 +1,159 @@
+var saveBtn = document.querySelector('.saveBtn');
+var description = document.querySelector('description');
+var currentTime;
+var today = dayjs();
+
+function getLocalStorage1() {
+  return JSON.parse(localStorage.getItem('storedInput1')) || [];
+};
+
+function getLocalStorage2() {
+  return JSON.parse(localStorage.getItem('storedInput2')) || []
+};
+
+function getLocalStorage3() {
+  return JSON.parse(localStorage.getItem('storedInput3')) || []
+};
+
+function getLocalStorage4() {
+  return JSON.parse(localStorage.getItem('storedInput4')) || []
+};
+
+function getLocalStorage5() {
+  return JSON.parse(localStorage.getItem('storedInput5')) || []
+};
+
+function getLocalStorage6() {
+  return JSON.parse(localStorage.getItem('storedInput6')) || []
+};
+
+function getLocalStorage7() {
+  return JSON.parse(localStorage.getItem('storedInput7')) || []
+};
+
+function getLocalStorage8() {
+  return JSON.parse(localStorage.getItem('storedInput8')) || []
+};
+
+function getLocalStorage9() {
+  return JSON.parse(localStorage.getItem('storedInput9')) || []
+};
+
+function getLocalStorage10() {
+  return JSON.parse(localStorage.getItem('storedInput10')) || []
+};
+
+function getLocalStorage11() {
+  return JSON.parse(localStorage.getItem('storedInput11')) || []
+};
+
+function getLocalStorage12() {
+  return JSON.parse(localStorage.getItem('storedInput12')) || []
+};
+
+function getLocalStorage13() {
+  return JSON.parse(localStorage.getItem('storedInput13')) || []
+};
+
+function getLocalStorage14() {
+  return JSON.parse(localStorage.getItem('storedInput14')) || []
+};
+
+function getLocalStorage15() {
+  return JSON.parse(localStorage.getItem('storedInput15')) || []
+};
+
+function getLocalStorage16() {
+  return JSON.parse(localStorage.getItem('storedInput16')) || []
+};
+
+function getLocalStorage17() {
+  return JSON.parse(localStorage.getItem('storedInput17')) || []
+};
+
+function getLocalStorage18() {
+  return JSON.parse(localStorage.getItem('storedInput18')) || []
+};
+
+function getLocalStorage19() {
+  return JSON.parse(localStorage.getItem('storedInput19')) || []
+};
+
+function getLocalStorage20() {
+  return JSON.parse(localStorage.getItem('storedInput20')) || []
+};
+
+function getLocalStorage21() {
+  return JSON.parse(localStorage.getItem('storedInput21')) || []
+};
+
+function getLocalStorage22() {
+  return JSON.parse(localStorage.getItem('storedInput22')) || []
+};
+
+function getLocalStorage23() {
+  return JSON.parse(localStorage.getItem('storedInput23')) || []
+};
+
+function getLocalStorage24() {
+  return JSON.parse(localStorage.getItem('storedInput24')) || []
+};
+
+function displayItems() {
+  // console.log("item showed");
+    description.textContent = storedInput[currentItem].item;
+};
+
+function timeDisplay() {
+  setInterval(function() {
+    currentTime = dayjs().format('HH:00:00');
+    $('#currentDay').text(today.format('dddd'));
+    // var time = dayjs().format('dddd MMM, YYYY [-] h:mm:ss a');
+    // $('#currentDay').text(time);
+  }, 1000);
+};
+
+timeDisplay();
+displayItems();
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  $('saveBtn').on("click", function () {
+    storeInput(); 
+  })
+
+  function storeInput(userInput1) {
+    var storedInput1 = getLocalStorage1();
+    var itemTime1 = currentTime;
+    var userInput1 = {
+      item: description,
+      itemTime1: itemTime1
+    };
+    
+    console.log(storedInput1);
+    console.log(userInput1);
+    storedInput1.push(userInput1);
+  
+    localStorage.setItem('storedInput1', JSON.stringify(storedInput1));
+  };
+
+  if (itemTime1 > currentTime) {
+    item.classList.add("future");  // is there a way to combine both removes?
+    item.classList.remove("past");    // Or is there a way to make it only one specificslly?
+    item.classList.remove("present");
+  } else if (itemTime1 < currentTime) {
+    item.classList.add("past");
+    item.classList.remove("future");
+    item.classList.remove("present");
+  } else {
+    item.classList.add("present");
+    item.classList.remove("past");
+    item.classList.remove("future");
+  }
+
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -22,33 +174,12 @@ $(function () {
   // TODO: Add code to display the current date in the header of the page.
 });
 
-var saveBtn = document.querySelector('.saveBtn');
-var description = document.querySelector('description');
-var currentTime;
-var today = dayjs();
+
+
 
 // var currentDay = $('#currentDay');
 
 // var storedHour = 
-
-function displayItem() {
-  // console.log("item showed");
-    description.textContent = storedInput[currentItem].item;
-};
-
-if (itemTime === currentTime) {
-  item.classList.remove("future");  //is there a way to combine both removes?
-  item.classList.remove("past");    //Or is there a way to make it only one specificslly?
-  item.classList.add("present");
-} else if (itemTime < currentTime) {
-  item.classList.remove("future");
-  item.classList.remove("present");
-  item.classList.add("past");
-} else {
-  item.classList.remove("present");
-  item.classList.remove("past");
-  item.classList.add("futuree");
-}
 
 
 // var userInfo = [];
@@ -86,17 +217,34 @@ if (itemTime === currentTime) {
 // init();
 
 
-// SAVE ACTIVITY BUTTON
-saveBtn.addEventListener("click", function(event) {
-  event.preventDefault();
+// SAVE ACTIVITY BUTTON                   
+// `saveBtn.addEventListener("click", function(event) {
+//   event.preventDefault();
   
-  storeInput();
-});
+//   storeInput();
+// });`
 
 // STORE THE ACTIVITY AND TIME OF ACTIVITY IN LOCALSTORAGE
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput1')) || []
-};
+// function getLocalStorage1() {
+//   return JSON.parse(localStorage.getItem('storedInput1')) || []
+// };
+
+// function storeInput(userInput) {
+//   var storedInput = getLocalStorage();
+//   var itemTime = currentTime;
+//   var userInput = {
+//     item: description,
+//     itemTime: itemTime
+//   };
+  
+//   console.log(storedInput);
+//   console.log(userInput);
+//   storedInput.push(userInput);
+
+//   localStorage.setItem('storedInput', JSON.stringify(storedInput));
+// };
+
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -113,9 +261,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput2')) || []
-};
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -132,9 +278,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput3')) || []
-};
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -151,9 +295,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput4')) || []
-};
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -170,9 +312,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput5')) || []
-};
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -189,9 +329,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput6')) || []
-};
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -208,9 +346,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput7')) || []
-};
+
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
@@ -227,28 +363,7 @@ function storeInput(userInput) {
   localStorage.setItem('storedInput', JSON.stringify(storedInput));
 };
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput8')) || []
-};
 
-function storeInput(userInput) {
-  var storedInput = getLocalStorage();
-  var itemTime = currentTime;
-  var userInput = {
-    item: description,
-    itemTime: itemTime
-  };
-  
-  console.log(storedInput);
-  console.log(userInput);
-  storedInput.push(userInput);
-
-  localStorage.setItem('storedInput', JSON.stringify(storedInput));
-};
-
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput9')) || []
-};
 
 function storeInput(userInput) {
   var storedInput = getLocalStorage();
