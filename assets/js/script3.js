@@ -1,20 +1,45 @@
 var saveBtn = document.querySelector('.saveBtn');
 var description = document.querySelector('description');
-var currentTime;
+var currentTime = dayjs().format('HH:00:00');
+var storedInput = getLocalStorage();
 var today = dayjs();
+var currentItem;
+// var currentItem = 'description enetered into specific id';
+// var itemTime = $(this).attr('id').replace('hour-', '');
 
-function getLocalStorage1() {
-  return JSON.parse(localStorage.getItem('storedInput1')) || [];
+function getLocalStorage() {
+  return JSON.parse(localStorage.getItem('storedInput')) || [];
 };
 
 function displayItems() {
   // console.log("item showed");
-    description.textContent = storedInput[currentItem].item;
+    description.textContent = storedInput[currentItems].items;
 };
+
+// function displayItems() {
+//   for (var i = 0; i < items.length; i++) {
+//     var items = storedItems[i].items;
+    // console.log(items);
+
+//     var li = document.createElement("li");
+//     li.textContent = `${currentItem}`;
+//     li.setAttribute("data-index", i);
+
+//     itemList.appendChild(li);
+//   }
+// };
+
+// function displayItems() {
+//   // console.log("item showed");
+//     for (var i = 0; i < items.length; i++) {
+//      description.textContent = storedInput[currentItems].item;
+//      description.innerHTML = `<li>${storedInput[currentItems].item[i]}</li>`;
+//     };
+// };
 
 function timeDisplay() {
   setInterval(function() {
-    currentTime = dayjs().format('HH:00:00');
+    // currentTime = dayjs().format('HH:00:00');
     $('#currentDay').text(today.format('dddd'));
     // var time = dayjs().format('dddd MMM, YYYY [-] h:mm:ss a');
     // $('#currentDay').text(time);
@@ -24,6 +49,24 @@ function timeDisplay() {
 timeDisplay();
 displayItems();
 
+$('.time-block').each(function() {
+  var itemTime = $(this).attr('id').replace('hour-', '');
+  console.log(itemTime, currentTime);
+  if (itemTime > currentTime) {
+    $(this).addClass("future");  // is there a way to combine both removes?
+    $(this).removeClass("past");    // Or is there a way to make it only one specificslly?
+    $(this).removeClass("present");  // how to use 'this' and jquery?
+  } else if (itemTime < currentTime) {
+    $(this).addClass("past");
+    $(this).removeClass("present");
+    $(this).removeClass("future");
+  } else {
+    $(this).addClass("present");
+    $(this).removeClass("past");
+    $(this).removeClass("future");
+  }
+})
+
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -32,34 +75,22 @@ $(function () {
     storeInput(); 
   })
 
-  function storeInput(userInput1) {
-    var storedInput1 = getLocalStorage1();
-    var itemTime1 = currentTime;
-    var userInput1 = {
+  var itemTime = $(this).attr('id').replace('hour-', '');
+  console.log(itemTime);
+
+  function storeInput(userInput) {
+    var itemTime = currentTime;
+    var userInput = {
       item: description,
-      itemTime1: itemTime1
+      itemTime: itemTime
     };
     
-    console.log(storedInput1);
-    console.log(userInput1);
-    storedInput1.push(userInput1);
+    console.log(storedInput);
+    console.log(userInput);
+    storedInput.push(userInput);
   
-    localStorage.setItem('storedInput1', JSON.stringify(storedInput1));
+    localStorage.setItem('storedInput', JSON.stringify(storedInput));
   };
-
-  if (itemTime1 > currentTime) {
-    item.classList.add("future");  // is there a way to combine both removes?
-    item.classList.remove("past");    // Or is there a way to make it only one specificslly?
-    item.classList.remove("present");
-  } else if (itemTime1 < currentTime) {
-    item.classList.add("past");
-    item.classList.remove("future");
-    item.classList.remove("present");
-  } else {
-    item.classList.add("present");
-    item.classList.remove("past");
-    item.classList.remove("future");
-  }
 
 
   // TODO: Add a listener for click events on the save button. This code should
@@ -81,3 +112,17 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+
+// $('input').length
+
+// var itemTime = parseInt(string, 10);
+
+// // USING 'THIS'
+
+// $(document).ready(function () {
+//   $('hour-').click(function () {
+//       var i = $(this).attr('id').replace('hour-', '');
+//       $('#result').text(i);
+//   });
+// });
