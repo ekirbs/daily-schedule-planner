@@ -3,18 +3,30 @@ var description = document.querySelector('description');
 var currentTime = dayjs().format('HH:00:00');
 var storedInput = getLocalStorage();
 var today = dayjs();
-var currentItem;
+// var currentItem;
 // var currentItem = 'description enetered into specific id';
 // var itemTime = $(this).attr('id').replace('hour-', '');
+
+function displayTime() {
+  setInterval(function() {
+    $('#currentDay').text(today.format('dddd'));
+    // var time = dayjs().format('dddd MMM, YYYY [-] h:mm:ss a');
+    // $('#currentDay').text(time);
+  }, 1000);
+};
 
 function getLocalStorage() {
   return JSON.parse(localStorage.getItem('storedInput')) || [];
 };
 
-function displayItems() {
-  // console.log("item showed");
-    description.textContent = storedInput[currentItems].items;
+function displayDescriptions() {
+
 };
+
+// function displayItems() {
+//   // console.log("item showed");
+//     description.textContent = storedInput[currentItems].items;
+// };
 
 // function displayItems() {
 //   for (var i = 0; i < items.length; i++) {
@@ -37,40 +49,31 @@ function displayItems() {
 //     };
 // };
 
-function timeDisplay() {
-  setInterval(function() {
-    // currentTime = dayjs().format('HH:00:00');
-    $('#currentDay').text(today.format('dddd'));
-    // var time = dayjs().format('dddd MMM, YYYY [-] h:mm:ss a');
-    // $('#currentDay').text(time);
-  }, 1000);
-};
-
-timeDisplay();
-displayItems();
-
-$('.time-block').each(function() {
-  var itemTime = $(this).attr('id').replace('hour-', '');
-  console.log(itemTime, currentTime);
-  if (itemTime > currentTime) {
-    $(this).addClass("future");  // is there a way to combine both removes?
-    $(this).removeClass("past");    // Or is there a way to make it only one specificslly?
-    $(this).removeClass("present");  // how to use 'this' and jquery?
-  } else if (itemTime < currentTime) {
-    $(this).addClass("past");
-    $(this).removeClass("present");
-    $(this).removeClass("future");
-  } else {
-    $(this).addClass("present");
-    $(this).removeClass("past");
-    $(this).removeClass("future");
-  }
-})
+displayTime();
+displayDescriptions();
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  $('.time-block').each(function() {
+    var itemTime = $(this).attr('id').replace('hour-', '');  // this line is still an issue
+    console.log(itemTime, currentTime);
+    if (itemTime > currentTime) {
+      $(this).addClass("future");  // is there a way to combine both removes?
+      $(this).removeClass("past");    // Or is there a way to make it only one specificslly?
+      $(this).removeClass("present");  // how to use 'this' and jquery?
+    } else if (itemTime < currentTime) {
+      $(this).addClass("past");
+      $(this).removeClass("present");
+      $(this).removeClass("future");
+    } else {
+      $(this).addClass("present");
+      $(this).removeClass("past");
+      $(this).removeClass("future");
+    }
+  })
+
   $('saveBtn').on("click", function () {
     storeInput(); 
   })
