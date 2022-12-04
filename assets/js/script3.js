@@ -57,7 +57,9 @@ displayDescriptions();
 // in the html.
 $(function () {
   $('.time-block').each(function() {
-    var itemTime = $(this).attr('id').replace('hour-', '');  // this line is still an issue
+    var itemTime = parseInt($(this).attr("id").split("hour-")[1]);
+
+    // var itemTime = $(this).attr('id').replace('hour-', '');  // this line is still an issue
     console.log(itemTime, currentTime);
     if (itemTime > currentTime) {
       $(this).addClass("future");  // is there a way to combine both removes?
@@ -74,11 +76,15 @@ $(function () {
     }
   })
 
-  $('saveBtn').on("click", function () {
+  $('saveBtn').on("click", function (event) {
+    // event.preventDefault();
+
     storeInput(); 
   })
 
-  var itemTime = $(this).attr('id').replace('hour-', '');
+  // var itemTime = parseInt($(this).attr("id").split("hour-")[1]);
+
+  // var itemTime = $(this).attr('id').replace('hour-', '');
   console.log(itemTime);
 
   function storeInput(userInput) {
