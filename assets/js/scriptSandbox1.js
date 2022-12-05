@@ -191,3 +191,16 @@
 //         }
 //     });
 // }
+
+
+// var obj = {
+//   "name": "hello",
+//   "price": 10000,
+//   "rate": 2020
+// };
+// localStorage.setItem("cart", JSON.stringify(obj));
+// var val = localStorage.getItem('cart');
+// var object = JSON.parse(val);
+// console.log('name: ', object.name);
+// console.log('price: ', object.price);
+// console.log('rate: ', object.rate);
