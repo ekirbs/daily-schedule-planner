@@ -1,7 +1,7 @@
 var saveBtn = document.querySelector('.saveBtn');
 var description = document.querySelector('description');
-var currentTime = parseInt(dayjs().format('HH')[1]);  // var milTime = 
-var storedInput = getLocalStorage();
+// var currentTime = parseInt(dayjs().format('HH'));  // when I used the radix [1], it only registered one digit, not two...why?
+// var storedInput = getLocalStorage();
 // var timeBlock = parseInt($('time-block').attr("id").split("hour-")[1]);
 
 
@@ -19,27 +19,64 @@ function displayTime() {
 // TODO: Add code to get any user input that was saved in localStorage and set
 // the values of the corresponding textarea elements. HINT: How can the id
 // attribute of each time-block be used to do this?
-function getLocalStorage() {
+// function getLocalStorage() {
 
-  return JSON.parse(localStorage.getItem('storedInput')) || [];
+//   return JSON.parse(localStorage.getItem('storedInput')) || [];
 
+// };
+
+function displayDescription() {
+  $('time-block').each(function() {
+    var itemTime = localStorage.getItem(itemTime);
+    var storedDescription = localStorage.getItem(description);
+    var timeBlock = parseInt($(this).attr('id').split("hour-")[1]);
+  })
+
+  if (itemTime !== null && itemTime === timeBlock) {
+    $(this).children('.description').val(localStorage.getItem(itemTime));
+    // $(this).children('.description').val(storedDescription);
+
+    // $('.description').val(localStorage.getItem(itemTime));
+  }
 };
 
-function displayDescriptions() {
-  console.log('storedInput');
-//   // clear current projects on the page
-//   description.empty();
+// function displayDescription() {
+//   $('time-block').each(function() {
+//   var itemTime = localstorage.getItem(itemTime);
+//   var timeBlock = parseInt($(this).attr("id").split("hour-")[1]);
 
+//   if 
+// })
+
+// function displayDescriptions() {
 //   var storedInput = getLocalStorage();
+//   console.log(storedInput);
 
-//   // loop through each project and create a row
-//   for (var i = 0; i < storedInput.length; i += 1) {
-//     var item = storedInput[i];
-//   }
-};
+//   $('time-block').each(function() {
+//     var timeBlock = parseInt($(this).attr("id").split("hour-")[1]);
+//     // for (i = 0; i < storedInput[description.length]; i++) {
+//       if (storedInput[itemTime] === timeBlock) {
+//         descriptionDisplay.textContent = description[i];
+//       }
+//         // else {
+//         //   descriptionDisplay.textContent = "";
+//         // }
+
+//     // }
+
+//   }) 
+// //   // clear current projects on the page
+// //   description.empty();
+
+
+// //   // loop through each project and create a row
+// //   for (var i = 0; i < storedInput.length; i += 1) {
+// //     var item = storedInput[i];
+//   // }
+// };
 
 displayTime();
-displayDescriptions();
+displayDescription();
 
 $(function () {
 
@@ -50,6 +87,7 @@ $(function () {
 // current hour in 24-hour time?
   $('.time-block').each(function() {
 
+    var currentTime = parseInt(dayjs().format('HH'));
     var itemTime = parseInt($(this).attr("id").split("hour-")[1]);
     console.log(itemTime, currentTime);
 
@@ -69,6 +107,27 @@ $(function () {
 
   })
 
+  $('.saveBtn').each(function() {
+
+    var itemTime = parseInt($(this).parent().attr("id").split("hour-")[1]);
+    console.log(itemTime, currentTime);
+
+    if (itemTime > currentTime) {
+      $(this).addClass("future-btn");  // is there a way to combine both removes?
+      $(this).removeClass("past-btn");    // Or is there a way to make it only one specificslly?
+      $(this).removeClass("present-btn");  // how to use 'this' and jquery?
+    } else if (itemTime < currentTime) {
+      $(this).addClass("past-btn");
+      $(this).removeClass("present-btn");
+      $(this).removeClass("future-btn");
+    } else {
+      $(this).addClass("present-btn");
+      $(this).removeClass("past-btn");
+      $(this).removeClass("future-btn");
+    }
+
+  })
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -77,10 +136,13 @@ $(function () {
   // useful when saving the description in local storage?
   $(".saveBtn").on("click", function () {
 
+
+    // var itemTime = parseInt($('time-block').attr('id').split('hour-')[1]);
+    // var description = $(this).siblings(".description").val();
+
     var itemTime = parseInt($(this).parent().attr("id").split("hour-")[1]);
     var description = $(this).siblings(".description").val();
 
-    // saving items via local storage
     localStorage.setItem(itemTime, description);
 
   })
