@@ -8,38 +8,88 @@ function displayTime() {
 // TODO: Add code to get any user input that was saved in localStorage and set
 // the values of the corresponding textarea elements. HINT: How can the id
 // attribute of each time-block be used to do this?
+// function getLocalStorage() {
+//   return JSON.parse(localStorage.getItem('itemTime', 'description')) || [];
+// };
 
-function getLocalStorage() {
-  return JSON.parse(localStorage.getItem('storedInput')) || [];
-};
+// function displayDescription() {
+//   $('.time-block').each(function() {
+//     var timeBlock = parseInt($(this).attr('id').split("hour-")[1]);
+//     var storedInput = getLocalStorage();
 
-function displayDescription() {
+//     var descriptions = storedInput.key(timeBlock);
+//     console.log(timeBlock, storedInput, descriptions);
 
-  $('.time-block').each(function() {
+//     $(this).children('.description').text(descriptions);
+//   })
+// };
 
-    var timeBlock = parseInt($(this).attr('id').split("hour-")[1]);
+// function displayDescription() {
+//   var 1, i;
 
-    var storedInput = getLocalStorage();
+// }
+
+displayTime();
+// displayDescription();
+
+
+// function displayDescription() {
+
+// // function getLocalStorage() {
+// //   return JSON.parse(localStorage.getItem('storedInput')) || [];
+// // };
+
+
+//   $('.time-block').each(function() {
+
+//     for (var i = 0; i < 24; i++) {
+//       $(`.hour-${i}`).val(localStorage.getItem(`${i}`));
+//     }
+//   }) 
+// }  
+    // var storedInput = getLocalStorage();
+    // var timeBlock = parseInt($(this).attr('id').split("hour-")[1]);
+
+    // for (var i = 0; i < storedInput.length; i++) {
+    //   var itemTime = storedInput[i].itemTime;
+    //   var description = storedInput[i].description;
+    //   if (i === timeBlock) {
+    //   console.log(itemTime, description);
+    //     $(this).children('.description').text(description);
+
+    //   } else {
+    //     $(this).children('.description').text('');
+    //   }
+    // }
+    // console.log(storedInput, description);
+
+    // var description = storedInput.find(item => item.key === timeBlock);
+    // var description = value['value'];
     // var description = localStorage.getItem(localStorage.key(itemTime));
-    var itemTime = localStorage.getItem(storedInput);
-    console.log(timeBlock, itemTime, description);
+    // var itemTime = localStorage.getItem(storedInput);
+    // console.log(timeBlock, itemTime, description);
 
     // var specificItem = localStorage.getItem(localStorage.at(timeBlock));
-    var specificItem = storedInput.at(timeBlock);
-    console.log(storedInput, specificItem);
+    // var specificItem = storedInput.at(timeBlock);
+    // console.log(storedInput, specificItem);
     // var currentInput;
 
-    var description = localStorage.getItem(localStorage.key(timeBlock));
+    // var description = localStorage.getItem(localStorage.key(timeBlock));
 
       // var storedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
       // console.log(storedUserInfo);
     
-      if (storedInput !== null) {
+      // if (storedInput !== null) {
         // if (timeBlock === )
         // currentInput = storedInput;
         // $(this).children('.description').text(specificItem);
-        $(this).children('.description').text(description);
-      }
+
+        // $(this).children('.description').text(description);
+
+      // } else {
+      //   $(this).children('.description').text("");
+
+      // }
       // console.log(currentInput);
           
 //     if (itemTime !== null) {
@@ -51,23 +101,70 @@ function displayDescription() {
 //       console.log(itemTime);
       // console.log(description);
 //     }
-  })
+  // })
 
 // //   if (itemTime !== null) {
 // //     $(this).children('.description').val(localStorage.getItem(itemTime));
 // //   }
 
-};
+// for (var i = 0; i < data.length, i++)
+//  console.log(data[i].user.login);
+//  console.log(data[i].url);
 
-displayTime();
-displayDescription();
+// for (i = 0; i < storedInput.length; i++)
+//   console.log(data[i].blockTime.description)
+
+// };
+
+// function displayDescriptions(storedInput, timeBlock) {
+//   return Object.values(storedInput).find
+// }
+
+
+// var storedInput = [];
+
+// function displayDescriptions() {
+//   // description.innerHTML = "";
+
+//   for (var i = 0; i < storedInput.length; i++) {
+//     var itemTime = storedInput[i].itemTime;
+//     var description = storedInput[i].description;
+//     console.log(itemTime, description);
+
+//     var li = document.createElement("li");
+//     li.textContent = `${name}: ${highScore}`;
+//     li.setAttribute("data-index", i);
+
+//     highScoreList.appendChild(li);
+//   }
+// }
+
+// function init() {
+//   var tempInput = JSON.parse(localStorage.getItem("storedInput"));
+
+//   if (tempInput !== null) {
+//     storedInput = tempInput;
+//   }
+
+//   displayDescriptions();
+// }
+
+// // init();
+
+// for (var i = 0; i < 24; i++) {
+//   $(`.hour-${i}`).val(localStorage.getItem(`${i}`));
+// }
+
+
+// displayTime();
+// displayDescription();
 
 // FUNCTIONS BELOW ARE AFTER PAGE LOAD
 $(function () {
 
   var currentTime = parseInt(dayjs().format('HH'));
 
-  // TIME BLOCK COLOR CONDITIONAL
+  // TIME BLOCK & SAVE BUTTON COLOR CONDITIONAL
   $('.time-block').each(function() {
 
     var itemTime = parseInt($(this).attr("id").split("hour-")[1]);
@@ -119,7 +216,7 @@ $(function () {
   $(".saveBtn").on("click", function () {
 
     var itemTime = parseInt($(this).parent().attr("id").split("hour-")[1]);
-    var description = $(this).siblings(".description").val();
+    var description = $(this).siblings(".description").val().trim();
 
     localStorage.setItem(itemTime, description);
 
